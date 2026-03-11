@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import string
+import re
 
 # -- process data
 def data_process(filepath="spam.csv"):
@@ -19,6 +20,15 @@ def data_process(filepath="spam.csv"):
     data.columns = ['classifier', 'message'] #rename columns  
     data = data.dropna()   #remove missing values
 
+    def clean_text(text):
+        text = text.lower() # make text all lowercase
+        text = text.translate(str.maketrans('', '', string.punctuation)) # remove punctuation
+        text = re.sub (r'\d+', '', text) # remove numbers
+        text = text.strip() # remove extra spaces
+        return text
+    
+    data['message'] = data['message'].apply(clean_text) # apply cleaning
+
     return data
 
 # -- create plots
@@ -31,7 +41,7 @@ def plot_distribution(data, column, title, colors=['#0352fcd1', '#fc2803c8'], ch
     column (str): Column name to plot.
     title (str): Chart title.
     colors (list): Colors for categories.
-    chart (str); 'bar', 'pie', or 'both'
+    chart (str): 'bar', 'pie', or 'both'
     """
 
     counts = data[column].value_counts() #count values
@@ -67,3 +77,8 @@ def plot_distribution(data, column, title, colors=['#0352fcd1', '#fc2803c8'], ch
 
 #data = data_process()
 #plot_distribution(data, column='classifier', title='Spam and Non-Spam Distribution', chart='both')
+
+
+
+# ----- debugging -----
+# print(data.head()) 
