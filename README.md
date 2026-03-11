@@ -1,0 +1,1 @@
+To analyse an email dataset, extract meaningful features for spam activity, and identify spam emails. Using analytical tools and techniques such as regression models, Support Vector Machines (SVM), or deep learning methods.
