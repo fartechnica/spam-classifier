@@ -11,7 +11,7 @@ def data_process(filepath="spam.csv"):
     filepath (str): Path to CSV file to process.
 
     Returns:
-    pd.DataFrame: Cleaned dataset with columnns: 'classifier", 'message'.
+    pd.DataFrame: Cleaned dataset with columns: 'classifier", 'message'.
     """
 
     data = pd.read_csv(filepath, encoding="latin-1") #open file
