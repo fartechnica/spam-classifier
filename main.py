@@ -1,24 +1,28 @@
-#------------------------------------------Imports--------------------------------------------#
 from data_preprocessing import data_process, plot_distribution
-from ml_preparation import prepareml
+from train_models import train_models
 
-#----------------------------------------------------------------------------------------------#
+#---------------------------------------------------------------------------------------#
 if __name__ == "__main__":
 
-# -------------------------1-------------------------------- #
-    # process the data, enable this before running prepareml():
-    #data = data_process() 
+    # -------------------------1-------------------------------- 
+    # Step 1: Process the data
+    data = data_process() 
 
-# -------------------------2-------------------------------- #
-    # -OPTIONAL OPTIONAL OPTIONAL-
-    # visualise the raw data 
-    #plot_distribution(data, column='classifier', title='Spam and Non-Spam Distribution', chart='both') 
+    # -------------------------2-------------------------------- 
+    # Step 2: Visualise the raw data
+    plot_distribution(data, column='classifier', title='Spam and Non-Spam Distribution', chart='both') 
 
-# -------------------------3-------------------------------- #
-    # prepare the data for ML algorithm
-    #, x_test, y_train, y_test, vectorizer, encoder = prepareml(data) 
+    # -------------------------3-------------------------------- 
+    # Step 3 Train models
 
-#------------------------------------------Debugging--------------------------------------------#
+    trained_models, (x_train, x_test, y_train, y_test), vectorizer, encoder = train_models(
+        selected_models=["LogisticRegression", "RandomForest"],
+        data=data
+    )
+    print("Models trained:", list(trained_models.keys()))
+
+    #--------------------------------------------Debugging----------------------------------
+    #print("Data preview:")
     #print(data.head()) 
     #print("Training data shape:", x_train.shape) # verify training data shape output
     #print("Testing data shape:", x_test.shape) # verify testing data shape output
