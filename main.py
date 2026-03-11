@@ -2,25 +2,36 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import string
 
-# data preprocessing
-
-data = pd.read_csv("spam.csv", encoding="latin-1") #open file
-data = data[['v1', 'v2']] #keep important columns
-data.columns = ['classifier', 'message'] #rename columns  
-data = data.dropna()   #remove missing values
-
-# check class distribution, plot charts
-
-def plot_distribution(data, column, title, colors=['#0352fcd1', '#fc2803c8'], chart='both'):
-    
+# -- process data
+def data_process(filepath="spam.csv"):
     """
-    params:
+    Load and clean dataset.
 
-    1. data - pandas DataFrame
-    2. column - string
-    3. title - string
-    4. colors - list of colors for cats
-    5. chart - 'bar', 'pie', 'both' (default)
+    Args:
+    filepath (str): Path to CSV file to process.
+
+    Returns:
+    pd.DataFrame: Cleaned dataset with columnns: 'classifier", 'message'.
+    """
+
+    data = pd.read_csv(filepath, encoding="latin-1") #open file
+    data = data[['v1', 'v2']] #keep important columns
+    data.columns = ['classifier', 'message'] #rename columns  
+    data = data.dropna()   #remove missing values
+
+    return data
+
+# -- create plots
+def plot_distribution(data, column, title, colors=['#0352fcd1', '#fc2803c8'], chart='both'):
+    """
+    Create plots.
+
+    Args:
+    data (pd.DataFrame): Dataset containing the column.
+    column (str): Column name to plot.
+    title (str): Chart title.
+    colors (list): Colors for categories.
+    chart (str); 'bar', 'pie', or 'both'
     """
 
     counts = data[column].value_counts() #count values
@@ -53,8 +64,6 @@ def plot_distribution(data, column, title, colors=['#0352fcd1', '#fc2803c8'], ch
         plt.title(title + " (Percentages)")
         plt.ylabel('')
         plt.show()
-        
 
-# use below to bring up the distribution charts.
-
-# plot_distribution(data, column='classifier', title='Spam and Non-Spam Distribution', chart='both')
+#data = data_process()
+#plot_distribution(data, column='classifier', title='Spam and Non-Spam Distribution', chart='both')
