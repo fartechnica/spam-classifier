@@ -1,12 +1,10 @@
 import pandas as pd
 import string
-import matplotlib.pyplot as plt
 import re
 
 
-
 # -- process data
-def data_process(filepath="spam.csv"):
+def data_process(filepath):
     """
     Load and clean dataset.
 
@@ -31,47 +29,3 @@ def data_process(filepath="spam.csv"):
     data['message'] = data['message'].apply(clean_text) # apply cleaning
 
     return data
-
-# -- create plots
-def plot_distribution(data, column, title, colors=['#0352fcd1', '#fc2803c8'], chart='both'):
-    """
-    Create plots.
-
-    Args:
-    data (pd.DataFrame): Dataset containing the column.
-    column (str): Column name to plot.
-    title (str): Chart title.
-    colors (list): Colors for categories.
-    chart (str): 'bar', 'pie', or 'both'
-    """
-
-    counts = data[column].value_counts() #count values
-
-    if chart in ['bar', 'both']:
-
-    # ------------- Bar Chart -------------
-        ax = counts.plot(                              
-            kind='bar',
-            color=colors)
-
-        for i, value in enumerate(counts):
-            ax.text(i, value + 10, str(value), ha='center')
-                
-        plt.title(title + " (Counts)")
-        plt.xlabel('Type')
-        plt.ylabel('Count')
-        plt.show()
-
-
-    if chart in ['pie', 'both']:
-
-    # ------------- Pie Chart -------------
-        counts.plot(                              
-            kind='pie',
-            autopct='%1.1f%%',
-            colors=colors,
-            startangle=90)
-                
-        plt.title(title + " (Percentages)")
-        plt.ylabel('')
-        plt.show()

@@ -31,7 +31,7 @@ def train_models(selected_models=None, data=None, filepath="spam.csv"):
 
     # ----- Preprocess and prepare data -----
     if data is None: # if data is not provided, process it here,
-                     # but should ideally be done in main for modularity
+                     # but should ideally be done in main for workflows
         data = data_process(filepath)
 
     x_train, x_test, y_train, y_test, vectorizer, encoder = prepareml(data)
@@ -42,6 +42,6 @@ def train_models(selected_models=None, data=None, filepath="spam.csv"):
         if model_name in all_models:
             trained_models[model_name] = all_models[model_name](x_train, y_train)
         else:
-            print(f"Warning: '{model_name}' not recognized, skipping.")
+            print(f"Warning: '{model_name}' not recognized, skipping.") #exception handling
 
     return trained_models, (x_train, x_test, y_train, y_test), vectorizer, encoder
