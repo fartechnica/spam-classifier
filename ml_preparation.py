@@ -2,7 +2,6 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 
-
 # -- prepare data for machine learning
 def prepareml(data, test_size=0.2):
     """
